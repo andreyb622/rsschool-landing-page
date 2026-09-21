@@ -1,0 +1,31 @@
+@import "global.css";
+@import "reset.css";
+@import "theme.css";
+@import "header.css";
+@import "footer.css";
+@import "home.css";
+@import "catalog.css";
+
+body {
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg-page);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
