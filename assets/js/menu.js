@@ -23,13 +23,12 @@ const CATEGORIES = {
 
 let products = [];
 let activeCategory = CATEGORIES.coffee;
-let isExpanded = false;
 let activeProduct = null;
 let selectedSize = "s";
-let selectedAdditiveIndex = 0;
+let selectedAdditives = [];
 
 function isMobile() {
-  return window.innerWidth < MOBILE_MAX_WIDTH;
+  return window.innerWidth <= MOBILE_MAX_WIDTH;
 }
 
 function getProductImage(product) {
@@ -96,11 +95,9 @@ function setActiveTab(category) {
 function getTotalPrice() {
   const basePrice = Number(activeProduct.price);
   const sizePrice = Number(activeProduct.sizes[selectedSize]["add-price"]);
-
-  const additivePrice =
-    selectedAdditiveIndex !== null
-      ? Number(activeProduct.additives[selectedAdditiveIndex]["add-price"])
-      : 0;
+  const additivePrice = selectedAdditives.reduce((sum, index) => {
+    return sum + Number(activeProduct.additives[index]["add-price"]);
+  }, 0);
 
   return (basePrice + sizePrice + additivePrice).toFixed(2);
 }
@@ -135,15 +132,14 @@ function renderSizeOptions() {
 }
 
 function renderAdditiveOptions() {
-  const additives = activeProduct.additives;
   additiveOptions.replaceChildren(
-    ...additives.map((additive, index) => {
+    ...activeProduct.additives.map((additive, index) => {
       const button = createOptionButton(
         index + 1,
         additive.name,
-        selectedAdditiveIndex === index,
+        selectedAdditives.includes(index),
       );
-      button.dataset.additive = index;
+      button.dataset.additive = String(index);
       return button;
     }),
   );
@@ -156,7 +152,7 @@ function updateModalPrice() {
 function openModal(product) {
   activeProduct = product;
   selectedSize = "s";
-  selectedAdditiveIndex = null;
+  selectedAdditives = [];
 
   modalImage.src = getProductImage(product);
   modalImage.alt = product.name;
@@ -194,10 +190,18 @@ async function initMenu() {
     });
   });
 
-  catalog.querySelectorAll(".card").forEach((card) => {
-    card.addEventListener("click", () => {
-      openModal(products.find((product) => product.name === card.dataset.name));
-    });
+  catalog.addEventListener("click", (event) => {
+    const card = event.target.closest(".card");
+
+    if (!card) {
+      return;
+    }
+
+    const product = products.find((item) => item.name === card.dataset.name);
+
+    if (product) {
+      openModal(product);
+    }
   });
 
   sizeOptions.addEventListener("click", (event) => {
@@ -221,7 +225,12 @@ async function initMenu() {
 
     const index = Number(button.dataset.additive);
 
-    selectedAdditiveIndex = index;
+    if (selectedAdditives.includes(index)) {
+      selectedAdditives = selectedAdditives.filter((item) => item !== index);
+    } else {
+      selectedAdditives.push(index);
+    }
+
     renderAdditiveOptions();
     updateModalPrice();
   });
