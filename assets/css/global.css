@@ -62,3 +62,14 @@ html {
     color 0.3s ease,
     border-color 0.3s ease;
 }
+
+.icon-btn {
+  border: 1px solid var(--border-inverse);
+  color: var(--text-primary);
+}
+
+.icon-btn:hover {
+  background: var(--bg-container);
+  color: var(--text-inverse);
+  border-color: var(--border-inverse);
+}

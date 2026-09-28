@@ -5,6 +5,8 @@
 @import "footer.css";
 @import "home.css";
 @import "catalog.css";
+@import "modal.css";
+@import "burger.css";
 
 body {
   font-family: Inter, sans-serif;
