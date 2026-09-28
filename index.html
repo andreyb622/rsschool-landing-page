@@ -286,6 +286,7 @@
               <button
                 type="button"
                 class="icon-btn slider__btn left"
+                data-direction="prev"
                 aria-label="Previous slide"
               >
                 <svg
@@ -304,58 +305,62 @@
                 </svg>
               </button>
               <div class="slider-wrapper">
-                <div class="slide">
-                  <img
-                    src="assets/images/coffee-slider-1.png"
-                    alt="S’mores Frappuccino"
-                    width="480"
-                    height="480"
-                  />
-                  <div class="slide__content">
-                    <h3 class="heading-3">S’mores Frappuccino</h3>
-                    <p>
-                      This new drink takes an espresso and mixes it with brown
-                      sugar and cinnamon before being topped with oat milk.
-                    </p>
-                    <p class="heading-3">$5.50</p>
+                <div class="slider-track">
+                  <div class="slide">
+                    <img
+                      src="assets/images/coffee-slider-1.png"
+                      alt="S’mores Frappuccino"
+                      width="480"
+                      height="480"
+                    />
+                    <div class="slide__content">
+                      <h3 class="heading-3">S’mores Frappuccino</h3>
+                      <p>
+                        This new drink takes an espresso and mixes it with brown
+                        sugar and cinnamon before being topped with oat milk.
+                      </p>
+                      <p class="heading-3">$5.50</p>
+                    </div>
                   </div>
-                </div>
-                <div class="slide">
-                  <img
-                    src="assets/images/coffee-slider-2.png"
-                    alt="Caramel Macchiato"
-                    width="480"
-                    height="480"
-                  />
-                  <div class="slide__content">
-                    <h3 class="heading-3">Caramel Macchiato</h3>
-                    <p>
-                      Fragrant and unique classic espresso with rich
-                      caramel-peanut syrup, with cream under whipped thick foam.
-                    </p>
-                    <p class="heading-3">$5.00</p>
+                  <div class="slide">
+                    <img
+                      src="assets/images/coffee-slider-2.png"
+                      alt="Caramel Macchiato"
+                      width="480"
+                      height="480"
+                    />
+                    <div class="slide__content">
+                      <h3 class="heading-3">Caramel Macchiato</h3>
+                      <p>
+                        Fragrant and unique classic espresso with rich
+                        caramel-peanut syrup, with cream under whipped thick
+                        foam.
+                      </p>
+                      <p class="heading-3">$5.00</p>
+                    </div>
                   </div>
-                </div>
-                <div class="slide">
-                  <img
-                    src="assets/images/coffee-slider-3.png"
-                    alt="Ice coffee"
-                    width="480"
-                    height="480"
-                  />
-                  <div class="slide__content">
-                    <h3 class="heading-3">Ice coffee</h3>
-                    <p>
-                      A popular summer drink that tones and invigorates.
-                      Prepared from coffee, milk and ice.
-                    </p>
-                    <p class="heading-3">$4.50</p>
+                  <div class="slide">
+                    <img
+                      src="assets/images/coffee-slider-3.png"
+                      alt="Ice coffee"
+                      width="480"
+                      height="480"
+                    />
+                    <div class="slide__content">
+                      <h3 class="heading-3">Ice coffee</h3>
+                      <p>
+                        A popular summer drink that tones and invigorates.
+                        Prepared from coffee, milk and ice.
+                      </p>
+                      <p class="heading-3">$4.50</p>
+                    </div>
                   </div>
                 </div>
               </div>
               <button
                 type="button"
                 class="icon-btn slider__btn"
+                data-direction="next"
                 aria-label="Next slide"
               >
                 <svg
@@ -681,5 +686,6 @@
     </footer>
 
     <script src="assets/js/theme.js"></script>
+    <script src="assets/js/slider.js"></script>
   </body>
 </html>
