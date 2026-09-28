@@ -12,6 +12,7 @@
   --radius-xl: 40px;
   --radius-l: 20px;
   --content: 1360px;
+  --bg-modal: #e1d4c9;
 }
 
 [data-theme="dark"] {
@@ -20,6 +21,7 @@
   --text-accent: #b0907a;
   --bg-page: #292826;
   --bg-container: #403f3d;
+  --bg-modal: #403f3d;
   --bg-overlay: rgba(41, 40, 38, 0.8);
   --border-primary: #665f55;
   --border-inverse: #c1b6ad;

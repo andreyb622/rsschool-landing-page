@@ -7,6 +7,13 @@ const catalog = document.querySelector(".catalog");
 const tabs = document.querySelector(".tabs");
 const cardTemplate = document.querySelector("#card-template");
 const loadMoreBtn = document.querySelector(".load-more");
+const modal = document.querySelector(".modal");
+const modalImage = modal.querySelector(".modal__image");
+const modalTitle = modal.querySelector("#modal-title");
+const modalDescription = modal.querySelector(".modal__description");
+const modalPrice = modal.querySelector(".modal__price");
+const sizeOptions = modal.querySelector('[data-options="size"]');
+const additiveOptions = modal.querySelector('[data-options="additives"]');
 
 const CATEGORIES = {
   coffee: "coffee",
@@ -17,6 +24,9 @@ const CATEGORIES = {
 let products = [];
 let activeCategory = CATEGORIES.coffee;
 let isExpanded = false;
+let activeProduct = null;
+let selectedSize = "s";
+let selectedAdditiveIndex = 0;
 
 function isMobile() {
   return window.innerWidth < MOBILE_MAX_WIDTH;
@@ -27,22 +37,25 @@ function getProductImage(product) {
 }
 
 function createCard(product, isHidden) {
-  const card = cardTemplate.content.cloneNode(true);
+  const cardClone = cardTemplate.content.cloneNode(true);
+  const card = cardClone.querySelector(".card");
   const image = card.querySelector("img");
   const title = card.querySelector("h2");
   const description = card.querySelector("p");
   const price = card.querySelector(".card__price");
 
+  card.dataset.name = product.name;
   image.src = getProductImage(product);
   image.alt = product.name;
   title.textContent = product.name;
   description.textContent = product.description;
   price.textContent = `$${product.price}`;
+
   if (isHidden) {
-    card.querySelector(".card").classList.add("is-hidden");
+    card.classList.add("is-hidden");
   }
 
-  return card;
+  return cardClone;
 }
 
 function renderCategory(category) {
@@ -80,6 +93,89 @@ function setActiveTab(category) {
   renderCategory(activeCategory);
 }
 
+function getTotalPrice() {
+  const basePrice = Number(activeProduct.price);
+  const sizePrice = Number(activeProduct.sizes[selectedSize]["add-price"]);
+
+  const additivePrice =
+    selectedAdditiveIndex !== null
+      ? Number(activeProduct.additives[selectedAdditiveIndex]["add-price"])
+      : 0;
+
+  return (basePrice + sizePrice + additivePrice).toFixed(2);
+}
+
+function createOptionButton(label, caption, isActive) {
+  const button = document.createElement("button");
+  const badge = document.createElement("span");
+  const buttonText = document.createTextNode(` ${caption}`);
+
+  button.type = "button";
+  button.className = "modal__option";
+  button.classList.toggle("is-active", isActive);
+  badge.textContent = label;
+
+  button.append(badge, buttonText);
+  return button;
+}
+
+function renderSizeOptions() {
+  const sizes = Object.entries(activeProduct.sizes);
+  sizeOptions.replaceChildren(
+    ...sizes.map(([key, value]) => {
+      const button = createOptionButton(
+        key.toUpperCase(),
+        value.size,
+        selectedSize === key,
+      );
+      button.dataset.size = key;
+      return button;
+    }),
+  );
+}
+
+function renderAdditiveOptions() {
+  const additives = activeProduct.additives;
+  additiveOptions.replaceChildren(
+    ...additives.map((additive, index) => {
+      const button = createOptionButton(
+        index + 1,
+        additive.name,
+        selectedAdditiveIndex === index,
+      );
+      button.dataset.additive = index;
+      return button;
+    }),
+  );
+}
+
+function updateModalPrice() {
+  modalPrice.textContent = `$${getTotalPrice()}`;
+}
+
+function openModal(product) {
+  activeProduct = product;
+  selectedSize = "s";
+  selectedAdditiveIndex = null;
+
+  modalImage.src = getProductImage(product);
+  modalImage.alt = product.name;
+  modalTitle.textContent = product.name;
+  modalDescription.textContent = product.description;
+
+  renderSizeOptions();
+  renderAdditiveOptions();
+  updateModalPrice();
+
+  document.body.style.overflow = "hidden";
+  modal.showModal();
+}
+
+function closeModal() {
+  document.body.style.overflow = "";
+  activeProduct = null;
+}
+
 async function initMenu() {
   const response = await fetch(PRODUCTS_PATH);
 
@@ -98,7 +194,46 @@ async function initMenu() {
     });
   });
 
+  catalog.querySelectorAll(".card").forEach((card) => {
+    card.addEventListener("click", () => {
+      openModal(products.find((product) => product.name === card.dataset.name));
+    });
+  });
+
+  sizeOptions.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-size]");
+
+    if (!button) {
+      return;
+    }
+
+    selectedSize = button.dataset.size;
+    renderSizeOptions();
+    updateModalPrice();
+  });
+
+  additiveOptions.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-additive]");
+
+    if (!button) {
+      return;
+    }
+
+    const index = Number(button.dataset.additive);
+
+    selectedAdditiveIndex = index;
+    renderAdditiveOptions();
+    updateModalPrice();
+  });
+
   loadMoreBtn.addEventListener("click", loadMore);
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.close();
+    }
+  });
+  modal.addEventListener("close", closeModal);
 }
 
 initMenu();

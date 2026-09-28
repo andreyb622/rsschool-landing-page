@@ -63,6 +63,7 @@
 }
 
 .card {
+  cursor: pointer;
   width: 100%;
   max-width: 310px;
   border: 1px solid var(--border-primary);

@@ -116,19 +116,15 @@
         <nav class="nav" aria-label="Primary">
           <ul class="nav__list">
             <li>
-              <a class="nav__link" href="../index.html#favorite-coffee"
-                >
+              <a class="nav__link" href="../index.html#favorite-coffee">
                 Favorite coffee
-                </a
-              >
+              </a>
             </li>
             <li><a class="nav__link" href="../index.html#about">About</a></li>
             <li>
-              <a class="nav__link" href="../index.html#mobile-app"
-                >
+              <a class="nav__link" href="../index.html#mobile-app">
                 Mobile app
-                </a
-              >
+              </a>
             </li>
             <li><a class="nav__link" href="#contacts">Contact us</a></li>
           </ul>
@@ -247,7 +243,7 @@
 
           <template id="card-template">
             <article class="card">
-              <img alt="" width="310" height="310">
+              <img alt="" width="310" height="310" />
               <div class="card__body">
                 <div>
                   <h2 class="heading-3"></h2>
@@ -260,7 +256,12 @@
 
           <div class="catalog"></div>
 
-          <button class="icon-btn load-more" type="button" aria-label="Load more" hidden> 
+          <button
+            class="icon-btn load-more"
+            type="button"
+            aria-label="Load more"
+            hidden
+          >
             <svg
               width="24"
               height="24"
@@ -278,6 +279,71 @@
           </button>
         </div>
       </section>
+
+      <dialog class="modal" aria-labelledby="modal-title">
+        <div class="modal__box">
+          <img class="modal__image" alt="" width="310" height="310" />
+          <div class="modal__content">
+            <h2 class="heading-3" id="modal-title"></h2>
+            <p class="modal__description"></p>
+            <fieldset class="modal__group">
+              <legend>Size</legend>
+              <div class="modal__options" data-options="size"></div>
+            </fieldset>
+            <fieldset class="modal__group">
+              <legend>Additives</legend>
+              <div class="modal__options" data-options="additives"></div>
+            </fieldset>
+            <p class="heading-3 modal__total">
+              <span class="">Total:</span>
+              <span class="modal__price"></span>
+            </p>
+            <div class="modal__note">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_147811_7611)">
+                    <path
+                      d="M8 7.66663V11"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M8 5.00667L8.00667 4.99926"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M8.00016 14.6667C11.6821 14.6667 14.6668 11.6819 14.6668 8.00004C14.6668 4.31814 11.6821 1.33337 8.00016 1.33337C4.31826 1.33337 1.3335 4.31814 1.3335 8.00004C1.3335 11.6819 4.31826 14.6667 8.00016 14.6667Z"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_147811_7611">
+                      <rect width="16" height="16" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              <p>
+                The cost is not final. Download our mobile app to see the final price
+                and place your order. Earn loyalty points and enjoy your favorite
+                coffee with up to 20% discount.
+              </p>
+            </div>
+            <form method="dialog">
+                <button class="modal__close" type="submit">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </main>
     <footer class="footer" id="contacts">
       <div class="container">
