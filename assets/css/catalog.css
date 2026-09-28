@@ -74,12 +74,12 @@
   transition: background-color 0.3s ease;
 }
 
-.card:nth-child(n + 5) {
-  display: none;
-}
-
 .card:hover {
   background: color-mix(in srgb, var(--bg-container) 12%, transparent);
+}
+
+.card.is-hidden {
+  display: none;
 }
 
 .card img {
@@ -97,13 +97,8 @@
   padding: 20px;
 }
 
-.load-more {
-  display: grid;
-  width: 60px;
-  height: 60px;
-  border: 1px solid var(--border-inverse);
-  border-radius: 50%;
-  place-items: center;
+.load-more.is-hidden {
+  display: none;
 }
 
 @media (min-width: 768px) {
@@ -118,16 +113,6 @@
 
   .card {
     max-width: none;
-  }
-}
-
-@media (min-width: 1440px) {
-  .catalog {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .card:nth-child(n + 5) {
-    display: flex;
   }
 
   .load-more {

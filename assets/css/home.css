@@ -84,14 +84,6 @@
 
 .slider__btn {
   display: none;
-  border: 1px solid var(--border-inverse);
-  color: var(--text-primary);
-}
-
-.slider__btn:hover {
-  background: var(--bg-container);
-  color: var(--text-inverse);
-  border-color: var(--border-inverse);
 }
 
 .slider-wrapper {
