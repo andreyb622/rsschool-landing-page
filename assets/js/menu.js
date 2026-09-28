@@ -243,6 +243,19 @@ async function initMenu() {
     }
   });
   modal.addEventListener("close", closeModal);
+
+  let wasMobile = isMobile();
+
+  window.addEventListener("resize", () => {
+    const nowMobile = isMobile();
+
+    if (nowMobile === wasMobile) {
+      return;
+    }
+
+    wasMobile = nowMobile;
+    renderCategory(activeCategory);
+  });
 }
 
 initMenu();

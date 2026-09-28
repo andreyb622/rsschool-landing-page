@@ -122,3 +122,9 @@
     display: none;
   }
 }
+
+@media (min-width: 1440px) {
+  .catalog {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
